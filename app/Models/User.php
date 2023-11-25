@@ -8,10 +8,12 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Contracts\Role;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -50,5 +52,10 @@ class User extends Authenticatable
     public function administrator(): HasOne
     {
         return $this->hasOne(Administrator::class);
+    }
+
+    public function getRoleAttribute(): Role
+    {
+        return $this->roles()->first();
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\UserRole;
 use App\Http\Resources\AdministratorResource;
 use App\Models\Administrator;
 use App\Http\Requests\StoreAdministratorRequest;
@@ -11,13 +12,14 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
+use Spatie\Permission\Models\Role;
 
 class AdministratorController extends Controller
 {
     private User $user;
     private Administrator $administrator;
 
-    public function __construct(User $user, Administrator $administrator)
+    public function __construct(User $user, Administrator $administrator, private readonly Role $role)
     {
         $this->user = $user;
         $this->administrator = $administrator;
@@ -45,9 +47,14 @@ class AdministratorController extends Controller
      */
     public function store(StoreAdministratorRequest $request): RedirectResponse
     {
+        $role = $this->role::query()->where('name', UserRole::ADMINISTRATOR->value)->first();
+
         $userAttributes = $request->userAttributes();
         $user = $this->user::create($userAttributes);
+        $user->assignRole($role);
+
         $this->administrator::create($request->administratorAttributes($user->id));
+
         return redirect('administrators.index')->with('flash.success', 'opération éffectuée');
     }
 
