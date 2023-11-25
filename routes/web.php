@@ -18,4 +18,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard/administrators', [AdministratorController::class, 'index'])->name('administrators.list');
+
+Route::group(['prefix' => 'dashboard'], function() {
+    Route::resource('/administrators',AdministratorController::class);
+});

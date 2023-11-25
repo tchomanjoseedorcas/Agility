@@ -10,7 +10,7 @@ use App\Models\User;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
-use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Http\RedirectResponse;
 
 class AdministratorController extends Controller
 {
@@ -29,59 +29,64 @@ class AdministratorController extends Controller
     public function index(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
         $administrators = AdministratorResource::collection($this->administrator::all());
-        return view('administrator',[
-            'administrators' => $administrators,
-        ]);
+        return view('administrators.index', compact('administrators'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
-        //
+        return view('administrators.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreAdministratorRequest $request): AdministratorResource
+    public function store(StoreAdministratorRequest $request): RedirectResponse
     {
         $userAttributes = $request->userAttributes();
         $user = $this->user::create($userAttributes);
-        $administrator = $this->administrator::create($request->administratorAttributes($user->id));
-        return new AdministratorResource($administrator);
+        $this->administrator::create($request->administratorAttributes($user->id));
+        return redirect('administrators.index')->with('flash.success', 'opération éffectuée');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Administrator $administrator): AnonymousResourceCollection
+    public function show(Administrator $administrator): \Illuminate\Contracts\Foundation\Application|Factory|View|Application
     {
-        return AdministratorResource::collection($administrator);
+        $administrator = new AdministratorResource($administrator);
+        return view('administrators.show', compact('administrator'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Administrator $administrator)
+    public function edit(Administrator $administrator): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
-        //
+        $administrator = new AdministratorResource($administrator);
+        return view('administrators.edit', compact('administrator'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateAdministratorRequest $request, Administrator $administrator)
+    public function update(UpdateAdministratorRequest $request, Administrator $administrator): RedirectResponse
     {
-        //
+        $administrator->user()->update($request->userAttributes());
+        return redirect()->route('administrators.show', [
+            'id' => $administrator->id
+        ])->with('flash.success', 'opération éffectuée');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Administrator $administrator)
+    public function destroy(Administrator $administrator): RedirectResponse
     {
-        //
+        $administrator->delete();
+        $this->administrator->user()->delete();
+        return redirect('administrators.index')->with('flash.success', 'opération éffectuée');
     }
 }
