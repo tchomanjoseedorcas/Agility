@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdministratorController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\ProjectHolderController;
 use Illuminate\Support\Facades\Route;
@@ -21,8 +22,11 @@ Route::get('/', function () {
 });
 
 
-Route::group(['prefix' => 'dashboard'], function() {
-    Route::resource('/administrators',AdministratorController::class);
-    Route::resource('/project-holders', ProjectHolderController::class);
-    Route::resource('/employees', EmployeeController::class);
+Route::group(['prefix' => 'login'], function() {
+    Route::get('/', [AuthController::class, 'loginPage'])->name('login.page');
+    Route::post('/', [AuthController::class, 'login'])->name('login.post');
 });
+
+Route::resource('/administrators',AdministratorController::class);
+Route::resource('/project-holders', ProjectHolderController::class);
+Route::resource('/employees', EmployeeController::class);
