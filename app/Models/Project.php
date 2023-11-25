@@ -18,6 +18,13 @@ class Project extends Model
      */
     protected $fillable = [
         'user_id',
+        'status_id',
+        'label',
+        'description',
+        'budget',
+        'is_validate',
+        'start_date',
+        'end_date'
     ];
 
     public function user(): BelongsTo

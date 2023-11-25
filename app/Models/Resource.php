@@ -16,7 +16,10 @@ class Resource extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'user_id',
+        'project_id',
+        'label',
+        'description',
+        'budget'
     ];
 
     public function project(): BelongsTo
