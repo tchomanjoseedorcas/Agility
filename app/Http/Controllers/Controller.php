@@ -7,6 +7,9 @@ use App\Http\Resources\AdministratorResource;
 use App\Http\Resources\EmployeeResource;
 use App\Http\Resources\ProjectHolderResource;
 use App\Models\User;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
@@ -30,5 +33,10 @@ class Controller extends BaseController
             UserRole::PROJECT_HOLDER->value => new ProjectHolderResource($this->getProfile($user, 'App\Models\ProjectHolder')),
             default => null
         };
+    }
+
+    public function dashboard(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
+    {
+        return view('index');
     }
 }

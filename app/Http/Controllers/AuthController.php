@@ -20,7 +20,7 @@ class AuthController extends Controller
 
     public function loginPage(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
-        return view('login');
+        return view('authentication.login');
     }
 
     public function login(LoginRequest $request): string|RedirectResponse
