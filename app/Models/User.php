@@ -4,6 +4,8 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -62,5 +64,20 @@ class User extends Authenticatable
     public function getRoleAttribute(): Role
     {
         return $this->roles()->first();
+    }
+
+    public function project(): HasMany
+    {
+        return $this->hasMany(Project::class);
+    }
+
+    public function task(): HasMany
+    {
+        return $this->hasMany(Task::class, 'affected_to');
+    }
+
+    public function comment(): HasMany
+    {
+        return $this->hasMany(Comment::class, 'created_by');
     }
 }
