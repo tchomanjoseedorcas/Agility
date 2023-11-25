@@ -93,7 +93,7 @@ class EmployeeController extends Controller
     public function destroy(Employee $employee): RedirectResponse
     {
         $employee->delete();
-        $this->employee->user()->delete();
+        $employee->user()->delete();
         return redirect('employees.index')->with('flash.success', 'opération éffectuée');
     }
 }

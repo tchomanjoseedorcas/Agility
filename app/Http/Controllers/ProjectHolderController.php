@@ -47,7 +47,7 @@ class ProjectHolderController extends Controller
      */
     public function store(StoreProjectHolderRequest $request): RedirectResponse
     {
-        $role = $this->role::query()->where('name', UserRole::ADMINISTRATOR->value)->first();
+        $role = $this->role::query()->where('name', UserRole::PROJECT_HOLDER->value)->first();
 
         $userAttributes = $request->userAttributes();
         $user = $this->user::create($userAttributes);
@@ -93,7 +93,7 @@ class ProjectHolderController extends Controller
     public function destroy(ProjectHolder $projectHolder): RedirectResponse
     {
         $projectHolder->delete();
-        $this->projectHolder->user()->delete();
+        $projectHolder->user()->delete();
         return redirect('projectHolders.index')->with('flash.success', 'opération éffectuée');
     }
 }

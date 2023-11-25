@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('label',255);
             $table->longText('description')->nullable();
             $table->integer('budget')->nullable();
+            $table->boolean('is_validate')->nullable();
             $table->timestamp('start_date')->nullable();
             $table->timestamp('end_date')->nullable();
             $table->timestamps();

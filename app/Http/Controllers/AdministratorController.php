@@ -93,7 +93,7 @@ class AdministratorController extends Controller
     public function destroy(Administrator $administrator): RedirectResponse
     {
         $administrator->delete();
-        $this->administrator->user()->delete();
+        $administrator->user()->delete();
         return redirect('administrators.index')->with('flash.success', 'opération éffectuée');
     }
 }

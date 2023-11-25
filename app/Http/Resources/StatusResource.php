@@ -14,6 +14,9 @@ class StatusResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            "label" => $this?->label,
+            "description" => $this?->description
+        ];
     }
 }
