@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\ProjectHolderRequest;
 
 use App\Rules\UserUniqueNewValue;
 use Illuminate\Contracts\Validation\ValidationRule;
@@ -8,7 +8,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
 
-class UpdateAdministratorRequest extends FormRequest
+class UpdateProjectHolderRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,12 +25,12 @@ class UpdateAdministratorRequest extends FormRequest
      */
     public function rules(): array
     {
-        $administrator = $this->route()->parameter('administrator');
+        $projectHolder = $this->route()->parameter('projectHolder');
         return [
             'lastname' => ['nullable', 'max:100'],
             'firstname' => ['nullable', 'max:100'],
-            'email' => ['nullable', 'email', new UserUniqueNewValue('email', $administrator?->email, $administrator?->user_id)],
-            'contact' => ['nullable', new UserUniqueNewValue('contact', $administrator?->contact, $administrator?->user_id)],
+            'email' => ['nullable', 'email', new UserUniqueNewValue('email', $projectHolder?->email, $projectHolder?->user_id)],
+            'contact' => ['nullable', new UserUniqueNewValue('contact', $projectHolder?->contact, $projectHolder?->user_id)],
             'password' => ['nullable', Password::min(8),'confirmed'],
             'photo' => ['nullable']
         ];

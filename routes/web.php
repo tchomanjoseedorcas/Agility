@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdministratorController;
+use App\Http\Controllers\ProjectHolderController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,4 +22,5 @@ Route::get('/', function () {
 
 Route::group(['prefix' => 'dashboard'], function() {
     Route::resource('/administrators',AdministratorController::class);
+    Route::resource('/project-holders', ProjectHolderController::class);
 });

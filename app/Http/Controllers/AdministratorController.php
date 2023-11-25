@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Enums\UserRole;
+use App\Http\Requests\AdministratorRequest\StoreAdministratorRequest;
+use App\Http\Requests\AdministratorRequest\UpdateAdministratorRequest;
 use App\Http\Resources\AdministratorResource;
 use App\Models\Administrator;
-use App\Http\Requests\StoreAdministratorRequest;
-use App\Http\Requests\UpdateAdministratorRequest;
 use App\Models\User;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;

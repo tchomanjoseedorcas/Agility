@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\ProjectHolderRequest;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
 
-class StoreAdministratorRequest extends FormRequest
+class StoreProjectHolderRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -20,8 +20,9 @@ class StoreAdministratorRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, ValidationRule|array<mixed>|string>
+     * @return array<string, ValidationRule|array|string>
      */
+
     public function rules(): array
     {
         return [
@@ -42,7 +43,7 @@ class StoreAdministratorRequest extends FormRequest
             ->only($attributes);
     }
 
-    public function administratorAttributes(string $userId): array
+    public function projectHolderAttributes(string $userId): array
     {
         return $this
             ->merge(['user_id' => $userId])

@@ -54,6 +54,11 @@ class User extends Authenticatable
         return $this->hasOne(Administrator::class);
     }
 
+    public function projectHolder(): HasOne
+    {
+        return $this->hasOne(ProjectHolder::class);
+    }
+
     public function getRoleAttribute(): Role
     {
         return $this->roles()->first();
