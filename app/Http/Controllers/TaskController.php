@@ -15,12 +15,10 @@ use Illuminate\Http\RedirectResponse;
 class TaskController extends Controller
 {
     private Task $task;
-    private Project $project;
 
-    public function __construct(Task $task, Project $project)
+    public function __construct(Task $task)
     {
         $this->task = $task;
-        $this->project = $project;
     }
 
     /**
@@ -28,7 +26,9 @@ class TaskController extends Controller
      */
     public function index(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
-        $tasks = TaskResource::collection($this->task::all());
+        $tasks = TaskResource::collection(
+            $this->task::query()->paginate(config('app.default_pagination_size'))
+        );
         return view('tasks.index', compact('tasks'));
     }
 

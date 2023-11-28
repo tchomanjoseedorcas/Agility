@@ -2,12 +2,13 @@
 
 namespace App\Http\Requests\CommentRequest;
 
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
 class UpdateCommentRequest extends FormRequest
 {
-    /** 
+    /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
@@ -15,17 +16,15 @@ class UpdateCommentRequest extends FormRequest
         return true; // Set to true to authorize all users for now; you can modify this based on your authentication logic.
     }
 
-    /** 
+    /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<string>|string>
+     * @return array<string, ValidationRule|array<string>|string>
      */
     public function rules(): array
     {
         return [
-            'comment_id'  => ['sometimes', 'required', 'exists:comments,id'],
-            'content'       => ['sometimes', 'required', 'max:255'],
-            'created_by' => ['nullable'],
+            'content' => ['nullable']
         ];
     }
 
@@ -36,10 +35,7 @@ class UpdateCommentRequest extends FormRequest
      */
     public function commentAttributes(): array
     {
-        $attributes = ['comment_id', 'content', 'created_by'];
-
-        
-
-        return $this->merge($attributes)->only($attributes);
+        $attributes = ['content'];
+        return $this->only($attributes);
     }
 }

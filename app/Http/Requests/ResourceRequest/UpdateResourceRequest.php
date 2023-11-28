@@ -2,12 +2,13 @@
 
 namespace App\Http\Requests\ResourceRequest;
 
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
 class UpdateResourceRequest extends FormRequest
 {
-    /** 
+    /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
@@ -15,10 +16,10 @@ class UpdateResourceRequest extends FormRequest
         return true; // Set to true to authorize all users for now; you can modify this based on your authentication logic.
     }
 
-    /** 
+    /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<string>|string>
+     * @return array<string, ValidationRule|array<string>|string>
      */
     public function rules(): array
     {

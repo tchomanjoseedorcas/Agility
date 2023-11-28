@@ -30,7 +30,9 @@ class ProjectHolderController extends Controller
      */
     public function index(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
-        $projectHolders = ProjectHolderResource::collection($this->projectHolder::all());
+        $projectHolders = ProjectHolderResource::collection(
+            $this->projectHolder::query()->paginate(config('app.default_pagination_size'))
+        );
         return view('projectHolders.index', compact('projectHolders'));
     }
 

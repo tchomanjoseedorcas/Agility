@@ -28,7 +28,9 @@ class ProjectController extends Controller
      */
     public function index(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
-        $projects = ProjectResource::collection($this->project::all());
+        $projects = ProjectResource::collection(
+            $this->project::query()->paginate(config('app.default_pagination_size'))
+        );
         return view('projects.index', compact('projects'));
     }
 

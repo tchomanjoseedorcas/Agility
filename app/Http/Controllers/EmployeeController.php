@@ -30,7 +30,9 @@ class EmployeeController extends Controller
      */
     public function index(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
-        $employees = EmployeeResource::collection($this->employee::all());
+        $employees = EmployeeResource::collection(
+            $this->employee::query()->paginate(config('app.default_pagination_size'))
+        );
         return view('employees.index', compact('employees'));
     }
 

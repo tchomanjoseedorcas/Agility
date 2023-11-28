@@ -30,7 +30,9 @@ class AdministratorController extends Controller
      */
     public function index(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
-        $administrators = AdministratorResource::collection($this->administrator::all());
+        $administrators = AdministratorResource::collection(
+            $this->administrator::query()->paginate(config('app.default_pagination_size'))
+        );
         return view('administrators.index', compact('administrators'));
     }
 

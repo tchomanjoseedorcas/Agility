@@ -4,12 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CommentRequest\StoreCommentRequest;
 use App\Http\Requests\CommentRequest\UpdateCommentRequest;
+use App\Http\Resources\CommentResource;
 use App\Models\Comment;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
 class CommentController extends Controller
 {
+    private Comment $comment;
+    public function __construct(Comment $comment)
+    {
+        $this->comment = $comment;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -17,11 +24,14 @@ class CommentController extends Controller
      */
     public function index(): View
     {
-        $comments = Comment::all();
+        $comments = CommentResource::collection(
+            $this->comment::query()->paginate(config('app.default_pagination_size'))
+        );
+
         return view('comments.index', compact('comments'));
     }
 
-   
+
     public function create(): View
     {
         return view('comments.create');
@@ -35,7 +45,7 @@ class CommentController extends Controller
      */
     public function store(StoreCommentRequest $request): RedirectResponse
     {
-        Comment::create($request->validated());
+        $this->comment::create($request->commentAttributes());
         return redirect()->route('comments.index')->with('flash.success', 'Opération effectuée');
     }
 
@@ -47,6 +57,7 @@ class CommentController extends Controller
      */
     public function show(Comment $comment): View
     {
+        $comment = new CommentResource($comment);
         return view('comments.show', compact('comment'));
     }
 
@@ -58,6 +69,7 @@ class CommentController extends Controller
      */
     public function edit(Comment $comment): View
     {
+        $comment = new CommentResource($comment);
         return view('comments.edit', compact('comment'));
     }
 
@@ -70,7 +82,7 @@ class CommentController extends Controller
      */
     public function update(UpdateCommentRequest $request, Comment $comment): RedirectResponse
     {
-        $comment->update($request->validated());
+        $comment->update($request->commentAttributes());
         return redirect()->route('comments.show', ['comment' => $comment])->with('flash.success', 'Opération effectuée');
     }
 
