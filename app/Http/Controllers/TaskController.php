@@ -6,7 +6,6 @@ use App\Http\Requests\TaskRequest\StoreTaskRequest;
 use App\Http\Requests\TaskRequest\UpdateTaskRequest;
 use App\Http\Resources\TaskResource;
 use App\Models\Task;
-use App\Models\Project;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
