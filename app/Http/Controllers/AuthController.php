@@ -20,16 +20,17 @@ class AuthController extends Controller
 
     public function loginPage(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
-        return view('authentication.login');
+        return view('login');
     }
 
     public function login(LoginRequest $request): string|RedirectResponse
     {
-        if (Auth::attempt($request->loginAttributes())){
-            $user = $this->user->findUserByEmailOrContact($request->loginAttributes()['email']);
+        if (Auth::attempt($request->loginAttributes())) {
+            $user = $this->user->findUserByEmailOrContact($request->loginAttributes());
             Auth::login($user);
-            return route('dashboard');
+            return redirect()->route('dashboard');
         }
-        return redirect()->route('login.page')->with('flash.error','identifiant ou mot de passe incorrect');
+
+        return redirect()->route('login')->with('identifiant ou mot de passe incorrect');
     }
 }

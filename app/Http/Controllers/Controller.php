@@ -37,6 +37,6 @@ class Controller extends BaseController
 
     public function dashboard(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
-        return view('index');
+        return view('pages.pages.dashboard');
     }
 }

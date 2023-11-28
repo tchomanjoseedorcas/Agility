@@ -33,7 +33,8 @@ class AdministratorController extends Controller
         $administrators = AdministratorResource::collection(
             $this->administrator::query()->paginate(config('app.default_pagination_size'))
         );
-        return view('administrators.index', compact('administrators'));
+        // dd($administrators);
+        return view('pages.pages.administrator.index', compact('administrators'));
     }
 
     /**

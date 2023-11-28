@@ -84,8 +84,7 @@ class User extends Authenticatable
     public function findUserByEmailOrContact(array $requestBody):self|Model|null
     {
         return self::query()
-            ->where('email',$requestBody['username'])
-            ->orWhere('contact',$requestBody['username'])
+            ->where('email',$requestBody['email'])
             ->first();
     }
 }
