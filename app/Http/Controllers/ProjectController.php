@@ -31,7 +31,7 @@ class ProjectController extends Controller
         $projects = ProjectResource::collection(
             $this->project::query()->paginate(config('app.default_pagination_size'))
         );
-        return view('projects.index', compact('projects'));
+        return view('pages.pages.project.index', compact('projects'));
     }
 
     /**

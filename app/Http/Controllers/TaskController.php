@@ -28,7 +28,7 @@ class TaskController extends Controller
         $tasks = TaskResource::collection(
             $this->task::query()->paginate(config('app.default_pagination_size'))
         );
-        return view('tasks.index', compact('tasks'));
+        return view('pages.pages.task.index', compact('tasks'));
     }
 
     /**

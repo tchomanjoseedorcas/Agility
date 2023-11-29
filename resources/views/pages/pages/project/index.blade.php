@@ -1,4 +1,5 @@
 @extends('pages.template')
+
 @section('content')
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -8,11 +9,11 @@
     </script>
 
     <div class="pagetitle">
-        <h1>Création et Modification des Porteurs de Projets</h1>
+        <h1>Création et Modification des Projets</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ route('project-holders.index') }}">Porteurs de Projets</a></li>
-                <li class="breadcrumb-item active">Création</li>
+                <li class="breadcrumb-item"><a href="{{ route('projects.index') }}">Projets</a></li>
+                <li class="breadcrumb-item active">{{ isset($project) ? 'Modification' : 'Création' }}</li>
             </ol>
         </nav>
     </div>
@@ -22,50 +23,76 @@
             <div class="col-lg-6">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Formulaire de Création des Porteurs de Projets</h5>
-                        <form method="POST" action="{{ route('project-holders.store') }}">
+                        <h5 class="card-title">{{ isset($project) ? 'Modifier le Projet' : 'Formulaire de Création des Projets' }}</h5>
+                        <form method="POST" action="{{ isset($project) ? route('projects.update', $project->id) : route('projects.store') }}">
                             @csrf
-                            <!-- Champs pour le formulaire de création -->
+                            @if(isset($project))
+                                @method('PUT')
+                            @endif
+
+                            <!-- Fields for the project model -->
                             <div class="row mb-3">
-                                <label for="firstname" class="col-sm-4 col-form-label">Prénom :</label>
+                                <label for="user_id" class="col-sm-4 col-form-label">Porteur de Projet :</label>
                                 <div class="col-sm-8">
-                                    <input type="text" name="firstname" id="firstname" class="form-control">
+                                    <!-- You might want to replace this with a dropdown to select the project holder -->
+                                    <input type="text" name="user_id" id="user_id" class="form-control" value="{{ isset($project) ? $project->user_id : old('user_id') }}">
                                 </div>
                             </div>
+
                             <div class="row mb-3">
-                                <label for="lastname" class="col-sm-4 col-form-label">Nom :</label>
+                                <label for="status_id" class="col-sm-4 col-form-label">Statut :</label>
                                 <div class="col-sm-8">
-                                    <input type="text" name="lastname" id="lastname" class="form-control">
+                                    <input type="text" name="status_id" id="status_id" class="form-control" value="{{ isset($project) ? $project->status_id : old('status_id') }}">
                                 </div>
                             </div>
+
                             <div class="row mb-3">
-                                <label for="contact" class="col-sm-4 col-form-label">Contact :</label>
+                                <label for="label" class="col-sm-4 col-form-label">Label :</label>
                                 <div class="col-sm-8">
-                                    <input type="text" name="contact" id="contact" class="form-control">
+                                    <input type="text" name="label" id="label" class="form-control" value="{{ isset($project) ? $project->label : old('label') }}">
                                 </div>
                             </div>
+
                             <div class="row mb-3">
-                                <label for="photo" class="col-sm-4 col-form-label">Photo :</label>
+                                <label for="description" class="col-sm-4 col-form-label">Description :</label>
                                 <div class="col-sm-8">
-                                    <input type="file" name="photo" id="photo" class="form-control">
+                                    <textarea class="form-control" id="description" name="description" rows="3">{{ isset($project) ? $project->description : old('description') }}</textarea>
                                 </div>
                             </div>
+
                             <div class="row mb-3">
-                                <label for="email" class="col-sm-4 col-form-label">Email :</label>
+                                <label for="budget" class="col-sm-4 col-form-label">Budget :</label>
                                 <div class="col-sm-8">
-                                    <input type="email" name="email" id="email" class="form-control">
+                                    <input type="number" name="budget" id="budget" class="form-control" value="{{ isset($project) ? $project->budget : old('budget') }}">
                                 </div>
                             </div>
+
                             <div class="row mb-3">
-                                <label for="password" class="col-sm-4 col-form-label">Mot de passe :</label>
+                                <label for="is_validate" class="col-sm-4 col-form-label">Validation :</label>
                                 <div class="col-sm-8">
-                                    <input type="password" name="password" id="password" class="form-control">
+                                    <!-- You might want to replace this with a checkbox for validation status -->
+                                    <input type="text" name="is_validate" id="is_validate" class="form-control" value="{{ isset($project) ? $project->is_validate : old('is_validate') }}">
                                 </div>
                             </div>
-                            <!-- Bouton de soumission -->
+
+                            <div class="row mb-3">
+                                <label for="start_date" class="col-sm-4 col-form-label">Date de début :</label>
+                                <div class="col-sm-8">
+                                    <input type="date" name="start_date" id="start_date" class="form-control" value="{{ isset($project) ? $project->start_date : old('start_date') }}">
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label for="end_date" class="col-sm-4 col-form-label">Date de fin :</label>
+                                <div class="col-sm-8">
+                                    <input type="date" name="end_date" id="end_date" class="form-control" value="{{ isset($project) ? $project->end_date : old('end_date') }}">
+                                </div>
+                            </div>
+
+                            <!-- Submit button -->
                             <div class="row mb-3">
                                 <div class="col-sm-12 text-end">
-                                    <button type="submit" class="btn btn-primary">Enregistrer</button>
+                                    <button type="submit" class="btn btn-primary">{{ isset($project) ? 'Enregistrer les modifications' : 'Enregistrer' }}</button>
                                 </div>
                             </div>
                         </form>
@@ -73,12 +100,11 @@
                 </div>
             </div>
 
-
             <div class="col-lg-6">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Liste des Porteurs de Projets</h5>
-                        @if ($projectHolders->isEmpty())
+                        <h5 class="card-title">Liste des Projets</h5>
+                        @if ($projects->isEmpty())
                             <p>Aucun administrateur trouvé.</p>
                         @else
                             <table class="table">
@@ -92,7 +118,7 @@
                                 </thead>
                                 <tbody>
 
-                                    @foreach ($projectHolders as $administrator)
+                                    @foreach ($projects as $administrator)
                                         <tr>
                                             <td>{{ $administrator->id }}</td>
                                             <td>{{ $administrator->user->lastname }}</td>
@@ -123,7 +149,7 @@
                                                     <div class="modal-body">
                                                         <!-- Contenu du formulaire d'édition -->
                                                         <form
-                                                            action="{{ route('project-holders.update', $administrator->id) }}"
+                                                            action="{{ route('projectHolders.update', $administrator->id) }}"
                                                             method="POST">
                                                             @csrf
                                                             @method('PUT')
@@ -199,7 +225,7 @@
                                                     </div>
                                                     <div class="modal-footer">
                                                         <form
-                                                            action="{{ route('project-holders.destroy', $administrator->id) }}"
+                                                            action="{{ route('projectHolders.destroy', $administrator->id) }}"
                                                             method="POST">
                                                             @csrf
                                                             @method('DELETE')
@@ -217,10 +243,11 @@
                             </table>
 
                             <!-- Affichage de la pagination -->
-                            {{ $projectHolders->links() }}
+                            {{ $projects->links() }}
                         @endif
                     </div>
                 </div>
             </div>
+        </div>
     </section>
 @endsection

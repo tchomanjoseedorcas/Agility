@@ -28,7 +28,7 @@ class ResourceController extends Controller
         $resources = ResourceResource::collection(
             $this->resource::query()->paginate(config('app.default_pagination_size'))
         );
-        return view('resources.index', compact('resources'));
+        return view('pages.pages.resources.index', compact('resources'));
     }
 
     /**
