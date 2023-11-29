@@ -33,7 +33,7 @@ class ProjectHolderController extends Controller
         $projectHolders = ProjectHolderResource::collection(
             $this->projectHolder::query()->paginate(config('app.default_pagination_size'))
         );
-        return view('projectHolders.index', compact('projectHolders'));
+        return view('pages.pages.projectHolder.index', compact('projectHolders'));
     }
 
     /**

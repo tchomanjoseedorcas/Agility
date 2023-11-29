@@ -33,7 +33,7 @@ class EmployeeController extends Controller
         $employees = EmployeeResource::collection(
             $this->employee::query()->paginate(config('app.default_pagination_size'))
         );
-        return view('employees.index', compact('employees'));
+        return view('pages.pages.employee.index', compact('employees'));
     }
 
     /**
