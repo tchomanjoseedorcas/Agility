@@ -6,6 +6,9 @@ use App\Enums\UserRole;
 use App\Http\Resources\AdministratorResource;
 use App\Http\Resources\EmployeeResource;
 use App\Http\Resources\ProjectHolderResource;
+use App\Models\Administrator;
+use App\Models\Employee;
+use App\Models\ProjectHolder;
 use App\Models\User;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -37,6 +40,9 @@ class Controller extends BaseController
 
     public function dashboard(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
-        return view('pages.pages.dashboard');
+        $administrator = Administrator::all()->count();
+        $employee = Employee::all()->count();
+        $projectHolder = ProjectHolder::all()->count();
+        return view('pages.pages.dashboard', compact('administrator', 'employee', 'projectHolder'));
     }
 }

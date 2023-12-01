@@ -167,8 +167,8 @@
 
             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                 <li class="dropdown-header">
-                    <h6>{{ auth()->user()->name }} </h6>
-                    <span>Administrateur</span>
+                    <h6>{{ auth()->user()->firstname }} {{ auth()->user()->lastname }}</h6>
+                    <span>{{ auth()->user()?->role?->name }}</span>
                 </li>
                 <li>
                     <hr class="dropdown-divider">
@@ -185,9 +185,9 @@
                 </li>
 
                 <li>
-                    <a class="dropdown-item d-flex align-items-center" href="">
+                    <a class="dropdown-item d-flex align-items-center" href="{{ route('logout') }}">
                         <i class="bi bi-box-arrow-right"></i>
-                        <span>Déconnexion</span>
+                        <span>Se deconnecter</span>
                     </a>
                 </li>
 

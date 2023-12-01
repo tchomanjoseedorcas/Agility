@@ -23,7 +23,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['prefix' => 'login'], function() {
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::group(['prefix' => 'login', 'middleware' => 'no.auth'], function() {
     Route::get('/', [AuthController::class, 'loginPage'])->name('login');
     Route::post('/', [AuthController::class, 'login'])->name('login.post');
 });

@@ -44,12 +44,12 @@
                                     <input type="text" name="contact" id="contact" class="form-control">
                                 </div>
                             </div>
-                            <div class="row mb-3">
-                                <label for="photo" class="col-sm-4 col-form-label">Photo :</label>
-                                <div class="col-sm-8">
-                                    <input type="file" name="photo" id="photo" class="form-control">
-                                </div>
-                            </div>
+{{--                            <div class="row mb-3">--}}
+{{--                                <label for="photo" class="col-sm-4 col-form-label">Photo :</label>--}}
+{{--                                <div class="col-sm-8">--}}
+{{--                                    <input type="file" name="photo" id="photo" class="form-control">--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
                             <div class="row mb-3">
                                 <label for="email" class="col-sm-4 col-form-label">Email :</label>
                                 <div class="col-sm-8">

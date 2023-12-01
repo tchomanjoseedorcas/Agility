@@ -30,7 +30,13 @@ class AuthController extends Controller
             Auth::login($user);
             return redirect()->route('dashboard');
         }
+        session()->put('email', $request->input('email'));
+        return redirect()->route('login')->with('error', 'identifiant ou mot de passe incorrect');
+    }
 
-        return redirect()->route('login')->with('identifiant ou mot de passe incorrect');
+    public function logout(): RedirectResponse
+    {
+        Auth::logout();
+        return redirect()->route('login');
     }
 }

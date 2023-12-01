@@ -10,8 +10,12 @@
     <meta content="" name="keywords">
 
     <!-- Favicons -->
-    <link href="{{ asset('assets/img/favicon.png') }}" rel="icon">
-    <link href="{{ asset('assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('assets/img/favicon/apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/img/favicon/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/img/favicon/favicon-16x16.png') }}">
+    <link rel="manifest" href="{{ asset('assets/img/favicon/site.webmanifest') }}">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
 
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">
@@ -49,36 +53,34 @@
                 <div class="container">
                     <div class="row justify-content-center">
                         <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
-                            @if (Session::has('success'))
-                                <div class="alert alert-success">
-                                    {{ Session::get('success') }}
-                                </div>
-                            @endif
-                            @if (Session::has('fail'))
-                                <div class="alert alert-danger">
-                                    {{ Session::get('fail') }}
-                                </div>
-                            @endif
                             <div class="d-flex justify-content-center py-4">
                                 <a href="#" class="logo d-flex align-items-center w-auto">
-                                    <img src="{{ asset('assets/img/logo.png') }}" alt="" width="100%">
+                                    <img src="{{ asset('assets/img/logo-agility.png') }}" alt="" width="100%">
                                 </a>
                             </div><!-- End Logo -->
 
                             <div class="card mb-3">
 
-                                <div class="card-body">
+                                <div class="card-body mt-2 mb-4 mx-3">
                                     {{-- <?php
                                         echo password_hash("password", PASSWORD_DEFAULT)
                                     ?> --}}
                                     <div class="pt-4 pb-2">
                                         <a href="#"
                                             class="logo d-flex justify-content-center align-items-center w-auto">
-                                            <span class="d-none d-lg-block">{{env('APP_NAME')}}</span>
+                                            <span class="d-none d-lg-block">Se connecter</span>
                                         </a>
                                         <br>
-                                        <p class="text-center small">Entrez votre e-mail et votre mot de passe pour vous
-                                            connecter</p>
+
+                                        @if (Session::has('success'))
+                                            <div class="text-center alert alert-success">
+                                                {{ Session::get('success') }}
+                                            </div>
+                                        @elseif(Session::has('error'))
+                                            <div class="text-center alert alert-danger">
+                                                {{ Session::get('error') }}
+                                            </div>
+                                        @endif
                                     </div>
 
                                     <form class="row g-3 needs-validation" method="POST"
@@ -87,7 +89,7 @@
                                         <div class="col-12">
                                             <label for="e-mail" class="form-label">Adresse e-mail</label>
                                             <div class="input-group has-validation">
-                                                <input type="email" name="email" class="form-control" id="e-mail"
+                                                <input type="email"  value="{{ session()->get('email') }}" name="email" class="form-control" id="e-mail"
                                                     required>
                                                 <div class="invalid-feedback">Entrez votre e-mail !</div>
                                             </div>
