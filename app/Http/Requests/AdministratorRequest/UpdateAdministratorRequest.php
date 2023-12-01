@@ -25,12 +25,12 @@ class UpdateAdministratorRequest extends FormRequest
      */
     public function rules(): array
     {
-        $projectHolder = $this->route()->parameter('projectHolder');
+        $administrator = $this->route()->parameter('administrator');
         return [
             'lastname' => ['nullable', 'max:100'],
             'firstname' => ['nullable', 'max:100'],
-            'email' => ['nullable', 'email', new UserUniqueNewValue('email', $projectHolder?->email, $projectHolder?->user_id)],
-            'contact' => ['nullable', new UserUniqueNewValue('contact', $projectHolder?->contact, $projectHolder?->user_id)],
+            'email' => ['nullable', 'email', new UserUniqueNewValue('email', $administrator?->email, $administrator?->user_id)],
+            'contact' => ['nullable', new UserUniqueNewValue('contact', $administrator?->contact, $administrator?->user_id)],
             'password' => ['nullable', Password::min(8),'confirmed'],
             'photo' => ['nullable']
         ];
@@ -40,7 +40,7 @@ class UpdateAdministratorRequest extends FormRequest
     {
         $attributes = ['lastname', 'firstname', 'email', 'contact', 'password', 'photo'];
 
-        if ($this->input('password')) {
+        if ($this->filled('password') && $this->input('password')) {
             $this->merge(['password' => Hash::make($this->input('password'))]);
             $attributes[] = 'password';
         }

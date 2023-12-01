@@ -74,7 +74,7 @@ class TaskController extends Controller
         $task->update($request->taskAttributes());
         return redirect()->route('tasks.show', [
             'id' => $task->id
-        ])->with('flash.success', 'Operation effectuée');
+        ])->with('success', 'Operation effectuée');
     }
 
     /**
