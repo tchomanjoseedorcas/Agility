@@ -48,7 +48,7 @@ class ProjectController extends Controller
     public function store(StoreProjectRequest $request): RedirectResponse
     {
         $this->project::create($request->projectAttributes());
-        return redirect('projects.index')->with('flash.success', 'opération éffectuée');
+        return redirect()->route('projects.index')->with('success', 'opération éffectuée');
     }
 
     /**
@@ -86,6 +86,6 @@ class ProjectController extends Controller
     public function destroy(Project $project): RedirectResponse
     {
         $project->delete();
-        return redirect('projects.index')->with('flash.success', 'opération éffectuée');
+        return redirect()->route('projects.index')->with('success', 'opération éffectuée');
     }
 }

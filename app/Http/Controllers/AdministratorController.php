@@ -58,7 +58,7 @@ class AdministratorController extends Controller
 
         $this->administrator::create($request->administratorAttributes($user->id));
 
-        return redirect('administrators.index')->with('flash.success', 'opération éffectuée');
+        return redirect()->route('administrators.index')->with('success', 'opération éffectuée');
     }
 
     /**
@@ -97,6 +97,6 @@ class AdministratorController extends Controller
     {
         $administrator->delete();
         $administrator->user()->delete();
-        return redirect('administrators.index')->with('flash.success', 'opération éffectuée');
+        return redirect()->route('administrators.index')->with('success', 'opération éffectuée');
     }
 }

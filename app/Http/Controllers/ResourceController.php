@@ -46,7 +46,7 @@ class ResourceController extends Controller
     {
         $this->resource::create($request->resourceAttributes());
 
-        return redirect()->route('resources.index')->with('flash.success', 'Operation successfully completed');
+        return redirect()->route('resources.index')->with('success', 'Operation successfully completed');
     }
 
     /**
@@ -82,6 +82,6 @@ class ResourceController extends Controller
     public function destroy(Resource $resource): RedirectResponse
     {
         $resource->delete();
-        return redirect()->route('resources.index')->with('flash.success', 'Operation successfully completed');
+        return redirect()->route('resources.index')->with('success', 'Operation successfully completed');
     }
 }

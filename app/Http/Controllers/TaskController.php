@@ -45,7 +45,7 @@ class TaskController extends Controller
     public function store(StoreTaskRequest $request): RedirectResponse
     {
         $this->task::create($request->taskAttributes());
-        return redirect()->route('tasks.index')->with('flash.success', 'Operation effectuée');
+        return redirect()->route('tasks.index')->with('success', 'Operation effectuée');
     }
 
     /**
@@ -83,6 +83,6 @@ class TaskController extends Controller
     public function destroy(Task $task): RedirectResponse
     {
         $task->delete();
-        return redirect()->route('tasks.index')->with('flash.success', 'Operation effectuée');
+        return redirect()->route('tasks.index')->with('success', 'Operation effectuée');
     }
 }

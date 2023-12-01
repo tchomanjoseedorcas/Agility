@@ -57,7 +57,7 @@ class EmployeeController extends Controller
 
         $this->employee::create($request->employeeAttributes($user->id));
 
-        return redirect('employees.index')->with('flash.success', 'opération éffectuée');
+        return redirect()->route('employees.index')->with('success', 'opération éffectuée');
     }
 
     /**
@@ -96,6 +96,6 @@ class EmployeeController extends Controller
     {
         $employee->delete();
         $employee->user()->delete();
-        return redirect('employees.index')->with('flash.success', 'opération éffectuée');
+        return redirect()->route('employees.index')->with('success', 'opération éffectuée');
     }
 }
