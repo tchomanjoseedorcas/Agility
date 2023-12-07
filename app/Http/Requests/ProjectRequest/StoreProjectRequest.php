@@ -35,10 +35,15 @@ class StoreProjectRequest extends FormRequest
 
     public function projectAttributes(): array
     {
-        $attributes = ['label', 'description', 'budget', 'start_date', 'end_date','user_id', 'status_id'];
+        $status = Status::getLabel('$Status->value'); // Suppose que getLabel() retourne un objet
+        $attributes = [
+            'label', 'description', 'budget', 'start_date', 'end_date', 'user_id', 'status_id'
+        ];
+    
         return $this
-            ->merge(['user_id' => Auth::id(), 'status_id' => Status::getLabel(Status::NEW->value)['id']])
+            ->merge(['user_id' => Auth::id(), 'status_id' => $status = Status::getLabel('$Status->value(id)')])
             ->only($attributes);
     }
+    
 }
 

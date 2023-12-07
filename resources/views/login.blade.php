@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title> AIBEF - Admin Panel</title>
+    <title> Agility </title>
     <meta content="Page de Connexion AIBEF ADMIN" name="description">
     <meta content="" name="keywords">
 
@@ -37,7 +37,7 @@
 <body>
     <style>
         main {
-            background-image: url('../../assets/img/fond.jpg');
+            background-image: url('../../assets/img/fond02.jpg');
             background-repeat: no-repeat;
             background-size: cover;
             background-position: center center;

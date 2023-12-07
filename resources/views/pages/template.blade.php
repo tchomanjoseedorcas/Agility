@@ -6,7 +6,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
 
-    <title> AIBEF - Admin Panel</title>
+    <title> Agility</title>
     <meta content="Page de Connexion AIBEF ADMIN" name="description">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Favicons -->

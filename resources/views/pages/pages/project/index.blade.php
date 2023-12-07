@@ -105,7 +105,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Liste des Projets</h5>
                         @if ($projects->isEmpty())
-                            <p>Aucun administrateur trouvé.</p>
+                            <p>Aucun projects trouvé.</p>
                         @else
                             <table class="table">
                                 <thead>
@@ -149,7 +149,7 @@
                                                     <div class="modal-body">
                                                         <!-- Contenu du formulaire d'édition -->
                                                         <form
-                                                            action="{{ route('projectHolders.update', $administrator->id) }}"
+                                                            action="{{ route('projects.update', $administrator->id) }}"
                                                             method="POST">
                                                             @csrf
                                                             @method('PUT')
@@ -225,7 +225,7 @@
                                                     </div>
                                                     <div class="modal-footer">
                                                         <form
-                                                            action="{{ route('projectHolders.destroy', $administrator->id) }}"
+                                                            action="{{ route('projects.destroy', $administrator->id) }}"
                                                             method="POST">
                                                             @csrf
                                                             @method('DELETE')
